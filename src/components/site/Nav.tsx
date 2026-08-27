@@ -29,9 +29,9 @@ export function Nav() {
         }`}
       >
         <Link to="/" className="flex items-center gap-2">
-          <img src={logo} alt="CloutCulturee" className="h-8 w-auto" />
+          <img src={logo} alt="Cloutculturr" className="h-8 w-auto" />
           <span className="hidden text-xs font-semibold uppercase tracking-[0.32em] sm:block">
-            CloutCulturee
+            Cloutculturr
           </span>
         </Link>
 

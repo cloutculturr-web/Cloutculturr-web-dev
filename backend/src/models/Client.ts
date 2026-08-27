@@ -15,7 +15,9 @@ export interface IClient extends Document {
     autoRenew: boolean;
     razorpaySubscriptionId?: string;
   };
+  /** Element ids are User._id (the creator's linked User doc), not Creator._id. */
   savedCreators: mongoose.Types.ObjectId[];
+  /** Element ids are User._id (the creator's linked User doc), not Creator._id. */
   viewedCreators: mongoose.Types.ObjectId[];
   createdAt: Date;
   updatedAt: Date;
@@ -93,13 +95,17 @@ const clientSchema = new Schema<IClient>(
       },
     },
     savedCreators: {
+      // Stores the creator's User._id (matches what clientService actually writes/
+      // populates) — was incorrectly declared ref:'Creator' before this fix.
       type: [Schema.Types.ObjectId],
-      ref: 'Creator',
+      ref: 'User',
       default: [],
     },
     viewedCreators: {
+      // Stores the creator's User._id (matches what clientService actually writes/
+      // populates) — was incorrectly declared ref:'Creator' before this fix.
       type: [Schema.Types.ObjectId],
-      ref: 'Creator',
+      ref: 'User',
       default: [],
     },
   },

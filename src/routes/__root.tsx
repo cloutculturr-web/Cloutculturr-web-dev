@@ -78,19 +78,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "CloutCulturee — Scaling Potential • Empowering Brands" },
+      { title: "Cloutculturr — Scaling Potential • Empowering Brands" },
       {
         name: "description",
         content:
           "Premium digital marketing agency and vetted creator marketplace for restaurants, startups, personal brands and creators.",
       },
-      { name: "author", content: "CloutCulturee" },
+      { name: "author", content: "Cloutculturr" },
       { name: "keywords", content: "digital marketing, creator marketplace, content creators, branding" },
       { property: "og:type", content: "website" },
-      { property: "og:title", content: "CloutCulturee — Scaling Potential • Empowering Brands" },
+      { property: "og:title", content: "Cloutculturr — Scaling Potential • Empowering Brands" },
       { property: "og:description", content: "Premium digital marketing agency and vetted creator marketplace" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "CloutCulturee" },
+      { name: "twitter:title", content: "Cloutculturr" },
       { name: "twitter:description", content: "Scaling Potential • Empowering Brands" },
     ],
     links: [

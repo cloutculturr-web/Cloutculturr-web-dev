@@ -7,7 +7,7 @@ import { Footer } from "@/components/site/Footer";
 import { Reveal } from "@/components/site/Reveal";
 import { creators, type Creator } from "@/data/site";
 
-const title = "Creator Marketplace — CloutCulturee";
+const title = "Creator Marketplace — Cloutculturr";
 const description =
   "Browse, compare and hire CC-approved editors, photographers, designers and performance marketers with transparent packages and pricing.";
 
@@ -68,7 +68,7 @@ function CreatorsPage() {
               <span className="text-gradient">Transparent pricing.</span>
             </h1>
             <p className="mt-6 max-w-xl text-sm text-muted-foreground sm:text-base">
-              Every creator here was invited and approved by the CloutCulturee team. Nobody
+              Every creator here was invited and approved by the Cloutculturr team. Nobody
               self-registers. Compare packages, then book directly.
             </p>
           </Reveal>

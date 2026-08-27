@@ -254,7 +254,7 @@ export class CreatorApplicationService {
       userId: user._id,
       type: 'creator_approval',
       title: 'Your creator application was approved',
-      message: `Welcome to CloutCulturee — you've been placed in ${tier.name}.`,
+      message: `Welcome to Cloutculturr — you've been placed in ${tier.name}.`,
       metadata: {},
     }).save();
 

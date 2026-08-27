@@ -17,8 +17,8 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/creator")({
   head: () => ({
     meta: [
-      { title: "Creator Dashboard - CloutCulturee" },
-      { name: "description", content: "Your CloutCulturee creator workspace" },
+      { title: "Creator Dashboard - Cloutculturr" },
+      { name: "description", content: "Your Cloutculturr creator workspace" },
     ],
   }),
   component: CreatorLayout,
@@ -109,7 +109,7 @@ function CreatorLayout() {
         <div className="h-16 border-b border-border flex items-center justify-between px-4">
           {sidebarOpen && (
             <h1 className="text-xl font-bold bg-gradient-to-r from-primary to-brand-gradient bg-clip-text text-transparent">
-              CloutCulturee
+              Cloutculturr
             </h1>
           )}
           <button

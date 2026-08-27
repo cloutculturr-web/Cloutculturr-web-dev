@@ -262,7 +262,7 @@ export class NotificationService {
     try {
       const title = approved ? 'Profile Approved! 🎉' : 'Profile Under Review';
       const message = approved
-        ? 'Your creator profile has been approved by CloutCulturee. You can now start receiving projects!'
+        ? 'Your creator profile has been approved by Cloutculturr. You can now start receiving projects!'
         : 'Your creator profile is under review. Our team will verify your details shortly.';
 
       const notification = await this.createNotification({

@@ -1,16 +1,243 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
+import {
+  ArrowRight,
+  Bell,
+  Briefcase,
+  Image as ImageIcon,
+  Package,
+  ShieldCheck,
+  Sparkles,
+  TrendingUp,
+  UserCircle,
+  Wallet,
+} from "lucide-react";
+import { Nav } from "@/components/site/Nav";
+import { Footer } from "@/components/site/Footer";
+import { FloatingBackground } from "@/components/site/FloatingBackground";
+import { Reveal, SectionHeading } from "@/components/site/Reveal";
 import { creatorApplicationAPI } from "@/services/api";
+
+const title = "Become a Creator - Cloutculturr";
+const description = "Apply to join the Cloutculturr creator network — see the process, what you get, and how commission works before you apply.";
 
 export const Route = createFileRoute("/creator-apply")({
   head: () => ({
     meta: [
-      { title: "Apply as a Creator - CloutCulturee" },
-      { name: "description", content: "Apply to join the CloutCulturee creator network" },
+      { title },
+      { name: "description", content: description },
     ],
   }),
   component: CreatorApplyPage,
 });
+
+function CreatorApplyPage() {
+  return (
+    <div className="min-h-screen bg-background">
+      <Nav />
+      <CreatorHero />
+      <HowItWorks />
+      <WhatYouGet />
+      <Commission />
+      <YourData />
+      <ApplyForm />
+      <Footer />
+    </div>
+  );
+}
+
+function CreatorHero() {
+  return (
+    <section className="relative grain flex min-h-[85vh] items-center overflow-hidden px-6 pt-32">
+      <FloatingBackground />
+      <div className="relative mx-auto w-full max-w-4xl text-center">
+        <span className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/40 px-4 py-2 text-xs uppercase tracking-[0.28em] text-muted-foreground backdrop-blur">
+          <Sparkles className="size-3.5 text-primary" /> Creator Network
+        </span>
+        <h1 className="mt-8 text-[clamp(2rem,6.5vw,5rem)] font-bold tracking-[-0.03em] leading-[0.98] text-gradient">
+          Become a Cloutculturr Creator
+        </h1>
+        <p className="mx-auto mt-6 max-w-xl text-base text-muted-foreground sm:text-lg">
+          Join a vetted network where CC brings the client and the project — you focus on delivering great work
+          and get paid on a transparent commission, tracked in your own dashboard.
+        </p>
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+          <a
+            href="#apply-form"
+            className="group inline-flex items-center gap-2 rounded-full bg-brand-gradient px-7 py-3.5 text-sm font-semibold text-primary-foreground transition-transform hover:scale-[1.04]"
+          >
+            Apply as Creator
+            <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+          </a>
+          <a
+            href="#how-it-works"
+            className="glass rounded-full px-7 py-3.5 text-sm font-semibold transition-colors hover:bg-secondary"
+          >
+            See how it works
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const steps = [
+  {
+    step: "Submit your application",
+    desc: "Tell us who you are — your bio, location, experience, skills, socials, and portfolio links or samples. Takes a few minutes.",
+  },
+  {
+    step: "CC reviews it manually",
+    desc: "Every application is read by the CC team — nothing is auto-approved and nothing is auto-rejected.",
+  },
+  {
+    step: "You're assigned a tier and pricing",
+    desc: "If approved, CC places you in a tier and sets your approved pricing, based on your experience and portfolio.",
+  },
+  {
+    step: "You get your Creator Dashboard",
+    desc: "Log in to manage your profile, portfolio and service packages, see projects CC assigns you, and track real earnings.",
+  },
+];
+
+function HowItWorks() {
+  return (
+    <section id="how-it-works" className="relative px-6 py-28">
+      <SectionHeading eyebrow="Process" title={<>How it works</>} />
+      <div className="mx-auto mt-16 max-w-4xl">
+        {steps.map((s, i) => (
+          <Reveal key={s.step} delay={i * 0.07}>
+            <div className="group flex items-start gap-6 border-b border-border py-8 transition-colors hover:border-primary">
+              <span className="w-12 shrink-0 text-sm text-muted-foreground">0{i + 1}</span>
+              <div className="min-w-0">
+                <h3 className="text-2xl font-semibold transition-colors group-hover:text-gradient sm:text-3xl">{s.step}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{s.desc}</p>
+              </div>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+const features = [
+  {
+    icon: UserCircle,
+    title: "Profile you control",
+    desc: "Bio, skills, languages, experience and social links — editable any time. CC-set fields like tier and pricing stay visible but read-only.",
+  },
+  {
+    icon: ImageIcon,
+    title: "Portfolio",
+    desc: "Add case studies with client context, challenge, solution and results. Every item goes through review before it's marked approved.",
+  },
+  {
+    icon: Package,
+    title: "Your own service packages",
+    desc: "Define what you offer — deliverables, timeline and price — and edit or retire packages whenever you want.",
+  },
+  {
+    icon: Briefcase,
+    title: "Project workspace",
+    desc: "See exactly which projects CC has assigned you and their status, from active through completed.",
+  },
+  {
+    icon: Wallet,
+    title: "Real earnings, not estimates",
+    desc: "Every payment shows the gross amount, CC's commission and your exact share — paid and pending, side by side.",
+  },
+  {
+    icon: Bell,
+    title: "Notifications",
+    desc: "Approvals, tier changes and project updates land in your dashboard as they happen.",
+  },
+];
+
+function WhatYouGet() {
+  return (
+    <section className="relative px-6 py-28">
+      <div className="mx-auto max-w-6xl">
+        <SectionHeading eyebrow="What you get" title={<>Your own creator dashboard</>} subtitle="Everything below is real, working functionality — not a preview." />
+        <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {features.map((f, i) => (
+            <Reveal key={f.title} delay={i * 0.06}>
+              <div className="glass h-full rounded-2xl p-6">
+                <div className="grid size-11 place-items-center rounded-xl bg-brand-gradient/15 text-primary">
+                  <f.icon className="size-5" />
+                </div>
+                <h3 className="mt-5 text-lg font-semibold">{f.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{f.desc}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+        <Reveal delay={0.3}>
+          <div className="mt-6 flex items-start gap-3 rounded-2xl border border-border p-5 text-sm text-muted-foreground">
+            <TrendingUp className="mt-0.5 size-5 shrink-0 text-primary" />
+            <p>
+              Tiers, verification status and approved pricing are set by the CC team, not self-editable — that's what
+              keeps a "verified creator" badge meaning something to clients.
+            </p>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function Commission() {
+  return (
+    <section className="relative px-6 py-16">
+      <div className="mx-auto max-w-4xl">
+        <Reveal>
+          <div className="glass grain relative overflow-hidden rounded-[2rem] p-10">
+            <h3 className="text-2xl font-semibold">Commission &amp; payouts</h3>
+            <div className="mt-8 grid gap-5 sm:grid-cols-2">
+              <div className="rounded-2xl bg-secondary/50 p-6">
+                <div className="text-4xl font-bold text-gradient">25–30%</div>
+                <p className="mt-3 text-sm text-muted-foreground">
+                  Platform commission on marketplace bookings, configurable by admin. The remainder is your payout —
+                  no hidden cuts.
+                </p>
+              </div>
+              <div className="rounded-2xl bg-secondary/50 p-6">
+                <div className="text-4xl font-bold text-gradient">100%</div>
+                <p className="mt-3 text-sm text-muted-foreground">
+                  Visible in your dashboard — every payment shows the gross amount, CC's exact commission and your
+                  exact share, plus what's already paid vs. still pending.
+                </p>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function YourData() {
+  return (
+    <section className="relative px-6 py-16">
+      <div className="mx-auto max-w-4xl">
+        <Reveal>
+          <div className="flex items-start gap-4 rounded-2xl border border-border p-6">
+            <ShieldCheck className="mt-0.5 size-6 shrink-0 text-primary" />
+            <div>
+              <h3 className="text-lg font-semibold">Your data</h3>
+              <p className="mt-2 text-sm text-muted-foreground">
+                What you submit below — your contact details, bio, portfolio links or files, and proposed pricing —
+                is used only to review your application and, if approved, set up your creator profile. Your tier,
+                verification status and approved pricing are set by the CC team and shown to you exactly as
+                recorded; nothing about your account is fabricated or estimated on your behalf.
+              </p>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
 
 interface FormState {
   email: string;
@@ -52,7 +279,7 @@ const initialState: FormState = {
   pricingNotes: "",
 };
 
-function CreatorApplyPage() {
+function ApplyForm() {
   const [form, setForm] = useState<FormState>(initialState);
   const [files, setFiles] = useState<File[]>([]);
   const [submitting, setSubmitting] = useState(false);
@@ -103,38 +330,33 @@ function CreatorApplyPage() {
     }
   };
 
+  const inputClass =
+    "w-full px-4 py-2 rounded-lg border border-border bg-background text-foreground placeholder-muted-foreground focus:border-primary focus:outline-none";
+  const labelClass = "block text-sm font-medium mb-2";
+
   if (submitted) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background px-4">
-        <div className="w-full max-w-md text-center glass rounded-2xl p-8">
-          <h1 className="text-2xl font-bold text-gradient mb-3">Application received</h1>
+      <section id="apply-form" className="relative px-6 py-28">
+        <div className="mx-auto w-full max-w-md text-center glass rounded-2xl p-8">
+          <h2 className="text-2xl font-bold text-gradient mb-3">Application received</h2>
           <p className="text-muted-foreground mb-6">
-            Thanks for applying to CloutCulturee. Our team reviews every application manually —
-            we'll reach out to the email you provided once a decision is made.
+            Thanks for applying to Cloutculturr. Our team reviews every application manually — we'll reach out to
+            the email you provided once a decision is made.
           </p>
           <Link to="/" className="text-primary hover:underline text-sm">
             Back to home
           </Link>
         </div>
-      </div>
+      </section>
     );
   }
 
-  const inputClass =
-    "w-full px-4 py-2 rounded-lg border border-border bg-background text-foreground placeholder-muted-foreground focus:border-primary focus:outline-none";
-  const labelClass = "block text-sm font-medium mb-2";
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background px-4 py-12">
-      <div className="w-full max-w-2xl">
-        <div className="mb-8 text-center">
-          <h1 className="text-4xl font-bold text-gradient mb-2">Apply as a Creator</h1>
-          <p className="text-muted-foreground">
-            Tell us about you — CC's team reviews every application and assigns a tier and pricing before you go live.
-          </p>
-        </div>
+    <section id="apply-form" className="relative px-6 py-28">
+      <div className="mx-auto w-full max-w-2xl">
+        <SectionHeading eyebrow="Apply" title={<>Tell us about you</>} subtitle="CC's team reviews every application and assigns a tier and pricing before you go live." />
 
-        <form onSubmit={handleSubmit} className="glass rounded-2xl p-8 space-y-6">
+        <form onSubmit={handleSubmit} className="glass mt-14 rounded-2xl p-8 space-y-6">
           {error && (
             <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-3 text-sm text-red-500">{error}</div>
           )}
@@ -278,6 +500,6 @@ function CreatorApplyPage() {
           </div>
         </form>
       </div>
-    </div>
+    </section>
   );
 }

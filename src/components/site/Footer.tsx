@@ -13,7 +13,7 @@ export function Footer() {
       <div className="relative mx-auto grid max-w-6xl gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
           <div className="flex items-center gap-2">
-            <img src={logo} alt="CloutCulturee" className="h-10 w-auto" />
+            <img src={logo} alt="Cloutculturr" className="h-10 w-auto" />
           </div>
           <p className="mt-5 max-w-sm text-sm text-muted-foreground">
             Scaling potential businesses through strategic digital marketing — creativity, strategy

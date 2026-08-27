@@ -90,7 +90,7 @@ export default function Register() {
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle>Create Account</CardTitle>
-          <CardDescription>Join CloutCulturee marketplace</CardDescription>
+          <CardDescription>Join Cloutculturr marketplace</CardDescription>
         </CardHeader>
         <CardContent>
           {error && (

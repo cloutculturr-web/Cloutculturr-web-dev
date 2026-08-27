@@ -17,7 +17,7 @@ import {
 const adminToken = 'test-admin-token-123';
 const mockAdminUser = {
   id: 'admin-123',
-  email: 'admin@cloutculturee.com',
+  email: 'admin@cloutculturr.com',
   role: 'admin'
 };
 
@@ -108,7 +108,7 @@ describe('Admin Dashboard API', () => {
         .send({
           title: 'Test Homepage',
           section: 'Homepage',
-          content: 'Welcome to CloutCulturee',
+          content: 'Welcome to Cloutculturr',
           metadata: {
             seoTitle: 'Home',
             keywords: ['test']

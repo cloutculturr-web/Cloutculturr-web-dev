@@ -24,9 +24,9 @@ import {
   workflow,
 } from "@/data/site";
 
-const title = "CloutCulturee — Scaling Potential • Empowering Brands";
+const title = "Cloutculturr — Scaling Potential • Empowering Brands";
 const description =
-  "CloutCulturee is a premium digital marketing agency and vetted creator marketplace helping restaurants, startups and personal brands dominate social media.";
+  "Cloutculturr is a premium digital marketing agency and vetted creator marketplace helping restaurants, startups and personal brands dominate social media.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -89,7 +89,7 @@ function Hero() {
           transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
           className="mt-8 text-[clamp(2.2rem,8.2vw,7rem)] font-bold tracking-[-0.04em] leading-[0.92] text-gradient"
         >
-          CLOUTCULTUREE
+          CLOUTCULTURR
         </motion.h1>
 
         <motion.p
@@ -130,8 +130,7 @@ function Hero() {
             Explore Creators
           </Link>
           <Link
-            to="/contact"
-            search={{ intent: "creator" }}
+            to="/creator-apply"
             className="rounded-full border border-border px-7 py-3.5 text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground"
           >
             Become a Creator
@@ -168,7 +167,7 @@ function Story() {
           eyebrow="Our Story"
           align="left"
           title={<>We built the agency<br />we wished existed.</>}
-          subtitle="CloutCulturee started with three people, one camera and a belief that great brands lose to average marketing every day. Today we run growth for restaurants, startups and creators — and we opened our vetted creator network so no brand has to gamble on talent again."
+          subtitle="Cloutculturr started with three people, one camera and a belief that great brands lose to average marketing every day. Today we run growth for restaurants, startups and creators — and we opened our vetted creator network so no brand has to gamble on talent again."
         />
         <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {stats.map((s, i) => (
@@ -257,7 +256,7 @@ function Packages() {
       <SectionHeading
         eyebrow="Packages"
         title={<>Work with <span className="text-gradient">CC</span> directly</>}
-        subtitle="Flagship retainers delivered by the CloutCulturee in-house team."
+        subtitle="Flagship retainers delivered by the Cloutculturr in-house team."
       />
       <div className="mx-auto mt-16 grid max-w-6xl gap-5 lg:grid-cols-3">
         {agencyPackages.map((p, i) => (

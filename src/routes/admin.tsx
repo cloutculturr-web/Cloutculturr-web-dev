@@ -18,7 +18,7 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
-      { title: "Admin Dashboard - CloutCulturee" },
+      { title: "Admin Dashboard - Cloutculturr" },
       { name: "description", content: "Enterprise admin control panel" },
     ],
   }),
@@ -113,7 +113,7 @@ function AdminLayout() {
         <div className="h-16 border-b border-border flex items-center justify-between px-4">
           {sidebarOpen && (
             <h1 className="text-xl font-bold bg-gradient-to-r from-primary to-brand-gradient bg-clip-text text-transparent">
-              CloutCulturee
+              Cloutculturr
             </h1>
           )}
           <button

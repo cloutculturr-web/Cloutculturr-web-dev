@@ -2,6 +2,8 @@ import mongoose, { Schema, Document } from 'mongoose';
 
 export interface IProject extends Document {
   projectCode: string;
+  /** Human-facing sequential code, e.g. "CC-REQ-2026-0001". Optional on legacy docs. */
+  displayCode?: string;
   clientId: mongoose.Types.ObjectId;
   creatorId?: mongoose.Types.ObjectId;
   type: 'agency' | 'marketplace';
@@ -63,6 +65,12 @@ const projectSchema = new Schema<IProject>(
       required: true,
       unique: true,
       index: true,
+    },
+    displayCode: {
+      type: String,
+      default: null,
+      sparse: true,
+      unique: true,
     },
     clientId: {
       type: Schema.Types.ObjectId,

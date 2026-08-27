@@ -28,17 +28,17 @@ export type Creator = {
 
 // Company Information
 export const companyInfo = {
-  name: "CloutCulturee",
+  name: "Cloutculturr",
   tagline: "Scaling Potential • Empowering Brands",
   description: "Premium digital marketing agency and vetted creator marketplace for restaurants, startups, personal brands and creators.",
-  email: "cloutculturee@gmail.com",
+  email: "cloutculturr@gmail.com",
   phone: "+91 9704924121",
   location: "Hyderabad, India",
-  website: "https://cloutculturee.com",
+  website: "https://cloutculturr.com",
   socialMedia: {
     instagram: "https://www.instagram.com/cloutculturr?igsh=enV2enN6ZDhmeGl6aayush",
-    linkedin: "https://www.linkedin.com/company/cloutculturee",
-    twitter: "https://twitter.com/cloutculturee",
+    linkedin: "https://www.linkedin.com/company/cloutculturr",
+    twitter: "https://twitter.com/cloutculturr",
   },
   founder: {
     name: "Aayush Singh",
@@ -48,7 +48,7 @@ export const companyInfo = {
     socialMedia: {
       instagram: "https://www.instagram.com/_aayusshhedits?utm_source=qrcode",
       linkedin: "https://www.linkedin.com/in/aayush-singh-597320404?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
-      email: "cloutculturee@gmail.com",
+      email: "cloutculturr@gmail.com",
       companyInstagram: "https://www.instagram.com/cloutculturr?igsh=enV2enN6ZDhmeGl6aayush",
     },
   },
@@ -301,10 +301,10 @@ export const agencyPackages = [
 ];
 
 export const faqs = [
-  { q: "What makes CloutCulturee different from a normal agency?", a: "We run as an agency first and a marketplace second. Every enquiry gets the CC team's proposal first — if we're not the right fit, you're routed to a vetted creator inside our marketplace instead of being left to search alone." },
+  { q: "What makes Cloutculturr different from a normal agency?", a: "We run as an agency first and a marketplace second. Every enquiry gets the CC team's proposal first — if we're not the right fit, you're routed to a vetted creator inside our marketplace instead of being left to search alone." },
   { q: "How does the creator marketplace work?", a: "Creators are invited and approved by our admin team — nobody self-registers. Each approved creator publishes verified packages, pricing and portfolio, and clients can browse, compare and book directly." },
   { q: "What does Premium membership include?", a: "₹100/month unlocks unlimited creator access, unlimited comparisons, direct messaging, bookings, shortlists, portfolio downloads, AI recommendations and priority support. Free accounts can browse up to 10 creators." },
-  { q: "How is commission handled?", a: "Projects delivered by CloutCulturee are 100% CC. Marketplace bookings carry a 25–30% platform commission, configurable by admin, with the balance paid out to the creator." },
+  { q: "How is commission handled?", a: "Projects delivered by Cloutculturr are 100% CC. Marketplace bookings carry a 25–30% platform commission, configurable by admin, with the balance paid out to the creator." },
   { q: "Which payment methods are supported?", a: "UPI, cards, net banking and wallets via Razorpay, with GST-ready invoices, subscription billing and refund management." },
   { q: "How fast can we start?", a: "Strategy calls are usually available within 48 hours, and most engagements go live within a week of the plan being approved." },
 ];

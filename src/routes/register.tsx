@@ -5,8 +5,8 @@ import { Link, useNavigate } from "@tanstack/react-router";
 export const Route = createFileRoute("/register")({
   head: () => ({
     meta: [
-      { title: "Register - CloutCulturee" },
-      { name: "description", content: "Create your CloutCulturee account" },
+      { title: "Register - Cloutculturr" },
+      { name: "description", content: "Create your Cloutculturr account" },
     ],
   }),
   component: RegisterPage,
@@ -87,7 +87,7 @@ function RegisterPage() {
     <div className="min-h-screen flex items-center justify-center bg-background px-4 py-8">
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
-          <h1 className="text-4xl font-bold text-gradient mb-2">CloutCulturee</h1>
+          <h1 className="text-4xl font-bold text-gradient mb-2">Cloutculturr</h1>
           <p className="text-muted-foreground">Create your account</p>
         </div>
 
@@ -181,7 +181,7 @@ function RegisterPage() {
               </Link>
             </p>
             <p className="text-muted-foreground">
-              Want to sell your services on CloutCulturee?{" "}
+              Want to sell your services on Cloutculturr?{" "}
               <Link to="/creator-apply" className="text-primary hover:underline">
                 Apply as a creator
               </Link>

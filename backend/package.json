@@ -1,7 +1,7 @@
 {
-  "name": "cloutculturee-backend",
+  "name": "cloutculturr-backend",
   "version": "1.0.0",
-  "description": "CloutCulturee Platform Backend - Complete Digital Marketing Ecosystem",
+  "description": "Cloutculturr Platform Backend - Complete Digital Marketing Ecosystem",
   "main": "dist/server.js",
   "type": "module",
   "scripts": {
@@ -22,7 +22,7 @@
     "agency",
     "saas"
   ],
-  "author": "CloutCulturee",
+  "author": "Cloutculturr",
   "license": "MIT",
   "dependencies": {
     "axios": "^1.6.2",

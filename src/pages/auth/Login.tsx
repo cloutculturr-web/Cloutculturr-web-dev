@@ -62,7 +62,7 @@ export default function Login() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800 p-4">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle>Login to CloutCulturee</CardTitle>
+          <CardTitle>Login to Cloutculturr</CardTitle>
           <CardDescription>Enter your credentials to continue</CardDescription>
         </CardHeader>
         <CardContent>

@@ -1,6 +1,7 @@
 import Project from '@/models/Project.js';
 import Client from '@/models/Client.js';
 import Creator from '@/models/Creator.js';
+import Counter from '@/models/Counter.js';
 import { NotFoundError, ValidationError, AppError } from '@/utils/errors.js';
 import { logger } from '@/utils/logger.js';
 import { v4 as uuidv4 } from 'uuid';
@@ -10,8 +11,22 @@ interface CreateProjectPayload {
   description: string;
   budget: number;
   requirements: string;
+  timeline: string | Date;
   type?: 'agency' | 'marketplace';
   creatorId?: string;
+}
+
+/**
+ * Atomically increments and returns the next sequence number for `key`.
+ * Used to generate real, non-fabricated sequential display codes.
+ */
+async function nextSequence(key: string): Promise<number> {
+  const counter = await Counter.findByIdAndUpdate(
+    key,
+    { $inc: { seq: 1 } },
+    { upsert: true, new: true }
+  );
+  return counter.seq;
 }
 
 interface UpdateProjectPayload {
@@ -28,18 +43,28 @@ export class ProjectService {
    */
   static async createProjectEnquiry(clientId: string, payload: CreateProjectPayload) {
     try {
-      // Generate project code
+      // Generate the internal project code (existing format — left unchanged since
+      // other code may depend on it) plus a real, sequential, human-facing display
+      // code (e.g. "CC-REQ-2026-0001"), never fabricated client-side.
       const projectCode = `PRJ-${Date.now()}-${uuidv4().substring(0, 8)}`.toUpperCase();
+      const year = new Date().getFullYear();
+      const seq = await nextSequence(`REQ-${year}`);
+      const displayCode = `CC-REQ-${year}-${String(seq).padStart(4, '0')}`;
 
       const project = new Project({
         projectCode,
+        displayCode,
         clientId,
         creatorId: payload.creatorId || null,
         type: payload.type || 'marketplace',
         title: payload.title,
         description: payload.description,
         budget: payload.budget,
+        timeline: payload.timeline,
         status: 'enquiry',
+        payment: {
+          totalAmount: payload.budget,
+        },
         enquiry: {
           submittedAt: new Date(),
           requirements: payload.requirements,
@@ -48,7 +73,7 @@ export class ProjectService {
 
       await project.save();
 
-      logger.info(`✅ Project enquiry created: ${projectCode}`);
+      logger.info(`✅ Project enquiry created: ${projectCode} (${displayCode})`);
 
       return project;
     } catch (error) {

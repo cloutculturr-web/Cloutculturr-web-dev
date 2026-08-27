@@ -15,6 +15,12 @@ router.use(requireRole('client'));
 router.get('/dashboard', ClientController.getDashboard);
 
 /**
+ * Profile
+ */
+router.get('/profile', ClientController.getProfile);
+router.put('/profile', ClientController.updateProfile);
+
+/**
  * Marketplace
  */
 router.get('/marketplace', ClientController.getMarketplace);
@@ -28,7 +34,8 @@ router.get('/recently-viewed', ClientController.getRecentlyViewed);
  * Membership
  */
 router.get('/membership', ClientController.getMembership);
-router.post('/membership/upgrade', ClientController.upgradeToPremium);
+router.post('/membership/order', ClientController.createMembershipOrder);
+router.post('/membership/verify', ClientController.verifyMembershipPayment);
 router.post('/membership/cancel', ClientController.cancelMembership);
 
 /**
@@ -38,5 +45,6 @@ router.post('/projects', ClientController.createProject);
 router.get('/projects', ClientController.getProjects);
 router.get('/projects/:id', ClientController.getProject);
 router.put('/projects/:id', ClientController.updateProject);
+router.post('/projects/:id/review', ClientController.submitProjectReview);
 
 export default router;

@@ -3,6 +3,14 @@ import ClientService from '@/services/clientService.js';
 import { AppError } from '@/utils/errors.js';
 import { logger } from '@/utils/logger.js';
 
+function getMeta(req: Request) {
+  return {
+    userEmail: (req as any).user?.email || 'unknown',
+    ipAddress: req.ip || (req.connection as any)?.remoteAddress || 'unknown',
+    userAgent: req.get('user-agent') || 'unknown',
+  };
+}
+
 export class ClientController {
   /**
    * Get client dashboard
@@ -27,6 +35,58 @@ export class ClientController {
       });
 
       logger.info(`✅ Client dashboard retrieved for: ${userId}`);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * Get client profile
+   * GET /api/client/profile
+   */
+  static async getProfile(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = (req as any).user?.userId;
+
+      if (!userId) {
+        throw new AppError('User not authenticated', 401);
+      }
+
+      const profile = await ClientService.getClientProfile(userId);
+
+      res.status(200).json({
+        success: true,
+        message: 'Profile retrieved',
+        data: profile,
+        statusCode: 200,
+        timestamp: new Date(),
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * Update client profile
+   * PUT /api/client/profile
+   */
+  static async updateProfile(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = (req as any).user?.userId;
+
+      if (!userId) {
+        throw new AppError('User not authenticated', 401);
+      }
+
+      const profile = await ClientService.updateClientProfile(userId, req.body, getMeta(req));
+
+      res.status(200).json({
+        success: true,
+        message: 'Profile updated',
+        data: profile,
+        statusCode: 200,
+        timestamp: new Date(),
+      });
     } catch (error) {
       next(error);
     }
@@ -131,7 +191,7 @@ export class ClientController {
         throw new AppError('User not authenticated', 401);
       }
 
-      await ClientService.saveCreator(userId, creatorId);
+      await ClientService.saveCreator(userId, creatorId, getMeta(req));
 
       res.status(200).json({
         success: true,
@@ -160,7 +220,7 @@ export class ClientController {
         throw new AppError('User not authenticated', 401);
       }
 
-      await ClientService.unsaveCreator(userId, creatorId);
+      await ClientService.unsaveCreator(userId, creatorId, getMeta(req));
 
       res.status(200).json({
         success: true,
@@ -233,10 +293,10 @@ export class ClientController {
   }
 
   /**
-   * Upgrade to premium
-   * POST /api/client/membership/upgrade
+   * Create a real Razorpay order for the Premium membership purchase
+   * POST /api/client/membership/order
    */
-  static async upgradeToPremium(req: Request, res: Response, next: NextFunction) {
+  static async createMembershipOrder(req: Request, res: Response, next: NextFunction) {
     try {
       const userId = (req as any).user?.userId;
 
@@ -244,21 +304,48 @@ export class ClientController {
         throw new AppError('User not authenticated', 401);
       }
 
-      // TODO: Create Razorpay order and return checkout URL
-      const client = await ClientService.upgradeToPremium(userId);
+      const order = await ClientService.createMembershipOrder(userId);
 
       res.status(200).json({
         success: true,
-        message: 'Premium upgrade initiated',
-        data: {
-          membership: client.membership,
-          // TODO: Add Razorpay order details
-        },
+        message: 'Membership order created',
+        data: order,
+        statusCode: 200,
+        timestamp: new Date(),
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * Verify the membership payment and activate Premium
+   * POST /api/client/membership/verify
+   */
+  static async verifyMembershipPayment(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = (req as any).user?.userId;
+      const { orderId, paymentId, signature } = req.body;
+
+      if (!userId) {
+        throw new AppError('User not authenticated', 401);
+      }
+
+      if (!orderId || !paymentId || !signature) {
+        throw new AppError('orderId, paymentId and signature are required', 400);
+      }
+
+      const result = await ClientService.verifyMembershipPayment(userId, orderId, paymentId, signature);
+
+      res.status(200).json({
+        success: true,
+        message: 'Premium membership activated',
+        data: result,
         statusCode: 200,
         timestamp: new Date(),
       });
 
-      logger.info(`✅ Premium upgrade initiated for: ${userId}`);
+      logger.info(`✅ Premium membership verified for: ${userId}`);
     } catch (error) {
       next(error);
     }
@@ -276,12 +363,12 @@ export class ClientController {
         throw new AppError('User not authenticated', 401);
       }
 
-      const client = await ClientService.cancelMembership(userId);
+      const client = await ClientService.cancelMembership(userId, getMeta(req));
 
       res.status(200).json({
         success: true,
         message: 'Membership cancelled',
-        data: client.membership,
+        data: client?.membership,
         statusCode: 200,
         timestamp: new Date(),
       });
@@ -299,19 +386,27 @@ export class ClientController {
   static async createProject(req: Request, res: Response, next: NextFunction) {
     try {
       const userId = (req as any).user?.userId;
-      const { title, description, budget, requirements } = req.body;
 
       if (!userId) {
         throw new AppError('User not authenticated', 401);
       }
 
-      // TODO: Implement project creation via ProjectService
+      const { title, description, budget, requirements, timeline, creatorId } = req.body;
+
+      if (!title || !description || !budget || !requirements || !timeline) {
+        throw new AppError('title, description, budget, requirements and timeline are required', 400);
+      }
+
+      const project = await ClientService.createClientProject(
+        userId,
+        { title, description, budget: Number(budget), requirements, timeline, creatorId },
+        getMeta(req)
+      );
+
       res.status(201).json({
         success: true,
         message: 'Project enquiry created',
-        data: {
-          // TODO: Return project data
-        },
+        data: project,
         statusCode: 201,
         timestamp: new Date(),
       });
@@ -329,16 +424,18 @@ export class ClientController {
   static async getProjects(req: Request, res: Response, next: NextFunction) {
     try {
       const userId = (req as any).user?.userId;
+      const { status } = req.query;
 
       if (!userId) {
         throw new AppError('User not authenticated', 401);
       }
 
-      // TODO: Implement project fetching
+      const projects = await ClientService.getClientProjects(userId, status as string | undefined);
+
       res.status(200).json({
         success: true,
         message: 'Projects retrieved',
-        data: [],
+        data: projects,
         statusCode: 200,
         timestamp: new Date(),
       });
@@ -362,11 +459,12 @@ export class ClientController {
         throw new AppError('User not authenticated', 401);
       }
 
-      // TODO: Implement project detail fetching
+      const project = await ClientService.getClientProject(userId, id);
+
       res.status(200).json({
         success: true,
         message: 'Project retrieved',
-        data: null,
+        data: project,
         statusCode: 200,
         timestamp: new Date(),
       });
@@ -378,7 +476,7 @@ export class ClientController {
   }
 
   /**
-   * Update project
+   * Update project (real, server-controlled transitions only)
    * PUT /api/client/projects/:id
    */
   static async updateProject(req: Request, res: Response, next: NextFunction) {
@@ -390,16 +488,50 @@ export class ClientController {
         throw new AppError('User not authenticated', 401);
       }
 
-      // TODO: Implement project update
+      const project = await ClientService.updateClientProject(userId, id, req.body, getMeta(req));
+
       res.status(200).json({
         success: true,
         message: 'Project updated',
-        data: null,
+        data: project,
         statusCode: 200,
         timestamp: new Date(),
       });
 
       logger.info(`✅ Project updated for: ${userId}`);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * Submit a review for a completed project
+   * POST /api/client/projects/:id/review
+   */
+  static async submitProjectReview(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = (req as any).user?.userId;
+      const { id } = req.params;
+      const { rating, feedback } = req.body;
+
+      if (!userId) {
+        throw new AppError('User not authenticated', 401);
+      }
+
+      const project = await ClientService.submitProjectReview(
+        userId,
+        id,
+        { rating: Number(rating), feedback },
+        getMeta(req)
+      );
+
+      res.status(200).json({
+        success: true,
+        message: 'Review submitted',
+        data: project,
+        statusCode: 200,
+        timestamp: new Date(),
+      });
     } catch (error) {
       next(error);
     }

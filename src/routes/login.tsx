@@ -5,8 +5,8 @@ import { Link, useNavigate } from "@tanstack/react-router";
 export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
-      { title: "Login - CloutCulturee" },
-      { name: "description", content: "Login to your CloutCulturee account" },
+      { title: "Login - Cloutculturr" },
+      { name: "description", content: "Login to your Cloutculturr account" },
     ],
   }),
   component: LoginPage,
@@ -69,7 +69,7 @@ function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
-          <h1 className="text-4xl font-bold text-gradient mb-2">CloutCulturee</h1>
+          <h1 className="text-4xl font-bold text-gradient mb-2">Cloutculturr</h1>
           <p className="text-muted-foreground">Login to your account</p>
         </div>
 

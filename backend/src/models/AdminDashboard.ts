@@ -484,7 +484,7 @@ const BlockedUserSchema = new Schema<BlockedUser>({
 });
 
 const SystemSettingsSchema = new Schema<SystemSettings>({
-  platformName: { type: String, default: 'CloutCulturee' },
+  platformName: { type: String, default: 'Cloutculturr' },
   platformTagline: { type: String },
   maintenanceMode: { type: Boolean, default: false },
   requireEmailVerification: { type: Boolean, default: true },

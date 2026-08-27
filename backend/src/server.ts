@@ -84,7 +84,7 @@ app.get('/health', (req: Request, res: Response) => {
 app.get('/api', (req: Request, res: Response) => {
   res.status(200).json({
     success: true,
-    message: 'CloutCulturee Backend API',
+    message: 'Cloutculturr Backend API',
     version: '1.0.0',
     endpoints: {
       auth: '/api/auth',
@@ -105,7 +105,7 @@ app.get('/api', (req: Request, res: Response) => {
 app.get('/', (req: Request, res: Response) => {
   res.json({
     success: true,
-    message: 'Welcome to CloutCulturee API',
+    message: 'Welcome to Cloutculturr API',
     version: '1.0.0',
     status: 'running',
     timestamp: new Date().toISOString(),
@@ -162,7 +162,7 @@ const startServer = async () => {
     app.listen(PORT, () => {
       logger.info(`
 ╔════════════════════════════════════════╗
-║  CloutCulturee Backend Server Running  ║
+║  Cloutculturr Backend Server Running  ║
 ╠════════════════════════════════════════╣
 ║  Port: ${PORT}                          
 ║  Environment: ${NODE_ENV}

@@ -20,6 +20,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as ClientIndexRouteImport } from './routes/client/index'
 import { Route as CreatorIndexRouteImport } from './routes/creator/index'
 import { Route as AdminAuditLogsIndexRouteImport } from './routes/admin/audit-logs/index'
 import { Route as AdminClientsIndexRouteImport } from './routes/admin/clients/index'
@@ -29,6 +30,14 @@ import { Route as AdminCreatorTiersIndexRouteImport } from './routes/admin/creat
 import { Route as AdminCreatorsIndexRouteImport } from './routes/admin/creators/index'
 import { Route as AdminCreatorsIdRouteImport } from './routes/admin/creators/$id'
 import { Route as AdminProjectsIndexRouteImport } from './routes/admin/projects/index'
+import { Route as ClientMarketplaceIndexRouteImport } from './routes/client/marketplace/index'
+import { Route as ClientMarketplaceCreatorIdRouteImport } from './routes/client/marketplace/$creatorId'
+import { Route as ClientMembershipIndexRouteImport } from './routes/client/membership/index'
+import { Route as ClientNotificationsIndexRouteImport } from './routes/client/notifications/index'
+import { Route as ClientProfileIndexRouteImport } from './routes/client/profile/index'
+import { Route as ClientProjectsIndexRouteImport } from './routes/client/projects/index'
+import { Route as ClientProjectsIdRouteImport } from './routes/client/projects/$id'
+import { Route as ClientSavedCreatorsIndexRouteImport } from './routes/client/saved-creators/index'
 import { Route as CreatorEarningsIndexRouteImport } from './routes/creator/earnings/index'
 import { Route as CreatorNotificationsIndexRouteImport } from './routes/creator/notifications/index'
 import { Route as CreatorPortfolioIndexRouteImport } from './routes/creator/portfolio/index'
@@ -91,6 +100,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminRoute,
 } as any)
+const ClientIndexRoute = ClientIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ClientRoute,
+} as any)
 const CreatorIndexRoute = CreatorIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -138,6 +152,49 @@ const AdminProjectsIndexRoute = AdminProjectsIndexRouteImport.update({
   path: '/projects/',
   getParentRoute: () => AdminRoute,
 } as any)
+const ClientMarketplaceIndexRoute = ClientMarketplaceIndexRouteImport.update({
+  id: '/marketplace/',
+  path: '/marketplace/',
+  getParentRoute: () => ClientRoute,
+} as any)
+const ClientMarketplaceCreatorIdRoute =
+  ClientMarketplaceCreatorIdRouteImport.update({
+    id: '/marketplace/$creatorId',
+    path: '/marketplace/$creatorId',
+    getParentRoute: () => ClientRoute,
+  } as any)
+const ClientMembershipIndexRoute = ClientMembershipIndexRouteImport.update({
+  id: '/membership/',
+  path: '/membership/',
+  getParentRoute: () => ClientRoute,
+} as any)
+const ClientNotificationsIndexRoute =
+  ClientNotificationsIndexRouteImport.update({
+    id: '/notifications/',
+    path: '/notifications/',
+    getParentRoute: () => ClientRoute,
+  } as any)
+const ClientProfileIndexRoute = ClientProfileIndexRouteImport.update({
+  id: '/profile/',
+  path: '/profile/',
+  getParentRoute: () => ClientRoute,
+} as any)
+const ClientProjectsIndexRoute = ClientProjectsIndexRouteImport.update({
+  id: '/projects/',
+  path: '/projects/',
+  getParentRoute: () => ClientRoute,
+} as any)
+const ClientProjectsIdRoute = ClientProjectsIdRouteImport.update({
+  id: '/projects/$id',
+  path: '/projects/$id',
+  getParentRoute: () => ClientRoute,
+} as any)
+const ClientSavedCreatorsIndexRoute =
+  ClientSavedCreatorsIndexRouteImport.update({
+    id: '/saved-creators/',
+    path: '/saved-creators/',
+    getParentRoute: () => ClientRoute,
+  } as any)
 const CreatorEarningsIndexRoute = CreatorEarningsIndexRouteImport.update({
   id: '/earnings/',
   path: '/earnings/',
@@ -173,7 +230,7 @@ const CreatorServicesIndexRoute = CreatorServicesIndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
-  '/client': typeof ClientRoute
+  '/client': typeof ClientRouteWithChildren
   '/contact': typeof ContactRoute
   '/creator': typeof CreatorRouteWithChildren
   '/creator-apply': typeof CreatorApplyRoute
@@ -182,15 +239,24 @@ export interface FileRoutesByFullPath {
   '/pricing': typeof PricingRoute
   '/register': typeof RegisterRoute
   '/admin/': typeof AdminIndexRoute
+  '/client/': typeof ClientIndexRoute
   '/creator/': typeof CreatorIndexRoute
   '/admin/creator-applications/$id': typeof AdminCreatorApplicationsIdRoute
   '/admin/creators/$id': typeof AdminCreatorsIdRoute
+  '/client/marketplace/$creatorId': typeof ClientMarketplaceCreatorIdRoute
+  '/client/projects/$id': typeof ClientProjectsIdRoute
   '/admin/audit-logs/': typeof AdminAuditLogsIndexRoute
   '/admin/clients/': typeof AdminClientsIndexRoute
   '/admin/creator-applications/': typeof AdminCreatorApplicationsIndexRoute
   '/admin/creator-tiers/': typeof AdminCreatorTiersIndexRoute
   '/admin/creators/': typeof AdminCreatorsIndexRoute
   '/admin/projects/': typeof AdminProjectsIndexRoute
+  '/client/marketplace/': typeof ClientMarketplaceIndexRoute
+  '/client/membership/': typeof ClientMembershipIndexRoute
+  '/client/notifications/': typeof ClientNotificationsIndexRoute
+  '/client/profile/': typeof ClientProfileIndexRoute
+  '/client/projects/': typeof ClientProjectsIndexRoute
+  '/client/saved-creators/': typeof ClientSavedCreatorsIndexRoute
   '/creator/earnings/': typeof CreatorEarningsIndexRoute
   '/creator/notifications/': typeof CreatorNotificationsIndexRoute
   '/creator/portfolio/': typeof CreatorPortfolioIndexRoute
@@ -200,7 +266,6 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/client': typeof ClientRoute
   '/contact': typeof ContactRoute
   '/creator-apply': typeof CreatorApplyRoute
   '/creators': typeof CreatorsRoute
@@ -208,15 +273,24 @@ export interface FileRoutesByTo {
   '/pricing': typeof PricingRoute
   '/register': typeof RegisterRoute
   '/admin': typeof AdminIndexRoute
+  '/client': typeof ClientIndexRoute
   '/creator': typeof CreatorIndexRoute
   '/admin/creator-applications/$id': typeof AdminCreatorApplicationsIdRoute
   '/admin/creators/$id': typeof AdminCreatorsIdRoute
+  '/client/marketplace/$creatorId': typeof ClientMarketplaceCreatorIdRoute
+  '/client/projects/$id': typeof ClientProjectsIdRoute
   '/admin/audit-logs': typeof AdminAuditLogsIndexRoute
   '/admin/clients': typeof AdminClientsIndexRoute
   '/admin/creator-applications': typeof AdminCreatorApplicationsIndexRoute
   '/admin/creator-tiers': typeof AdminCreatorTiersIndexRoute
   '/admin/creators': typeof AdminCreatorsIndexRoute
   '/admin/projects': typeof AdminProjectsIndexRoute
+  '/client/marketplace': typeof ClientMarketplaceIndexRoute
+  '/client/membership': typeof ClientMembershipIndexRoute
+  '/client/notifications': typeof ClientNotificationsIndexRoute
+  '/client/profile': typeof ClientProfileIndexRoute
+  '/client/projects': typeof ClientProjectsIndexRoute
+  '/client/saved-creators': typeof ClientSavedCreatorsIndexRoute
   '/creator/earnings': typeof CreatorEarningsIndexRoute
   '/creator/notifications': typeof CreatorNotificationsIndexRoute
   '/creator/portfolio': typeof CreatorPortfolioIndexRoute
@@ -228,7 +302,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
-  '/client': typeof ClientRoute
+  '/client': typeof ClientRouteWithChildren
   '/contact': typeof ContactRoute
   '/creator': typeof CreatorRouteWithChildren
   '/creator-apply': typeof CreatorApplyRoute
@@ -237,15 +311,24 @@ export interface FileRoutesById {
   '/pricing': typeof PricingRoute
   '/register': typeof RegisterRoute
   '/admin/': typeof AdminIndexRoute
+  '/client/': typeof ClientIndexRoute
   '/creator/': typeof CreatorIndexRoute
   '/admin/creator-applications/$id': typeof AdminCreatorApplicationsIdRoute
   '/admin/creators/$id': typeof AdminCreatorsIdRoute
+  '/client/marketplace/$creatorId': typeof ClientMarketplaceCreatorIdRoute
+  '/client/projects/$id': typeof ClientProjectsIdRoute
   '/admin/audit-logs/': typeof AdminAuditLogsIndexRoute
   '/admin/clients/': typeof AdminClientsIndexRoute
   '/admin/creator-applications/': typeof AdminCreatorApplicationsIndexRoute
   '/admin/creator-tiers/': typeof AdminCreatorTiersIndexRoute
   '/admin/creators/': typeof AdminCreatorsIndexRoute
   '/admin/projects/': typeof AdminProjectsIndexRoute
+  '/client/marketplace/': typeof ClientMarketplaceIndexRoute
+  '/client/membership/': typeof ClientMembershipIndexRoute
+  '/client/notifications/': typeof ClientNotificationsIndexRoute
+  '/client/profile/': typeof ClientProfileIndexRoute
+  '/client/projects/': typeof ClientProjectsIndexRoute
+  '/client/saved-creators/': typeof ClientSavedCreatorsIndexRoute
   '/creator/earnings/': typeof CreatorEarningsIndexRoute
   '/creator/notifications/': typeof CreatorNotificationsIndexRoute
   '/creator/portfolio/': typeof CreatorPortfolioIndexRoute
@@ -267,15 +350,24 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/register'
     | '/admin/'
+    | '/client/'
     | '/creator/'
     | '/admin/creator-applications/$id'
     | '/admin/creators/$id'
+    | '/client/marketplace/$creatorId'
+    | '/client/projects/$id'
     | '/admin/audit-logs/'
     | '/admin/clients/'
     | '/admin/creator-applications/'
     | '/admin/creator-tiers/'
     | '/admin/creators/'
     | '/admin/projects/'
+    | '/client/marketplace/'
+    | '/client/membership/'
+    | '/client/notifications/'
+    | '/client/profile/'
+    | '/client/projects/'
+    | '/client/saved-creators/'
     | '/creator/earnings/'
     | '/creator/notifications/'
     | '/creator/portfolio/'
@@ -285,7 +377,6 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/client'
     | '/contact'
     | '/creator-apply'
     | '/creators'
@@ -293,15 +384,24 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/register'
     | '/admin'
+    | '/client'
     | '/creator'
     | '/admin/creator-applications/$id'
     | '/admin/creators/$id'
+    | '/client/marketplace/$creatorId'
+    | '/client/projects/$id'
     | '/admin/audit-logs'
     | '/admin/clients'
     | '/admin/creator-applications'
     | '/admin/creator-tiers'
     | '/admin/creators'
     | '/admin/projects'
+    | '/client/marketplace'
+    | '/client/membership'
+    | '/client/notifications'
+    | '/client/profile'
+    | '/client/projects'
+    | '/client/saved-creators'
     | '/creator/earnings'
     | '/creator/notifications'
     | '/creator/portfolio'
@@ -321,15 +421,24 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/register'
     | '/admin/'
+    | '/client/'
     | '/creator/'
     | '/admin/creator-applications/$id'
     | '/admin/creators/$id'
+    | '/client/marketplace/$creatorId'
+    | '/client/projects/$id'
     | '/admin/audit-logs/'
     | '/admin/clients/'
     | '/admin/creator-applications/'
     | '/admin/creator-tiers/'
     | '/admin/creators/'
     | '/admin/projects/'
+    | '/client/marketplace/'
+    | '/client/membership/'
+    | '/client/notifications/'
+    | '/client/profile/'
+    | '/client/projects/'
+    | '/client/saved-creators/'
     | '/creator/earnings/'
     | '/creator/notifications/'
     | '/creator/portfolio/'
@@ -341,7 +450,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRouteWithChildren
-  ClientRoute: typeof ClientRoute
+  ClientRoute: typeof ClientRouteWithChildren
   ContactRoute: typeof ContactRoute
   CreatorRoute: typeof CreatorRouteWithChildren
   CreatorApplyRoute: typeof CreatorApplyRoute
@@ -430,6 +539,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/client/': {
+      id: '/client/'
+      path: '/'
+      fullPath: '/client/'
+      preLoaderRoute: typeof ClientIndexRouteImport
+      parentRoute: typeof ClientRoute
+    }
     '/creator/': {
       id: '/creator/'
       path: '/'
@@ -492,6 +608,62 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/projects/'
       preLoaderRoute: typeof AdminProjectsIndexRouteImport
       parentRoute: typeof AdminRoute
+    }
+    '/client/marketplace/': {
+      id: '/client/marketplace/'
+      path: '/marketplace'
+      fullPath: '/client/marketplace/'
+      preLoaderRoute: typeof ClientMarketplaceIndexRouteImport
+      parentRoute: typeof ClientRoute
+    }
+    '/client/marketplace/$creatorId': {
+      id: '/client/marketplace/$creatorId'
+      path: '/marketplace/$creatorId'
+      fullPath: '/client/marketplace/$creatorId'
+      preLoaderRoute: typeof ClientMarketplaceCreatorIdRouteImport
+      parentRoute: typeof ClientRoute
+    }
+    '/client/membership/': {
+      id: '/client/membership/'
+      path: '/membership'
+      fullPath: '/client/membership/'
+      preLoaderRoute: typeof ClientMembershipIndexRouteImport
+      parentRoute: typeof ClientRoute
+    }
+    '/client/notifications/': {
+      id: '/client/notifications/'
+      path: '/notifications'
+      fullPath: '/client/notifications/'
+      preLoaderRoute: typeof ClientNotificationsIndexRouteImport
+      parentRoute: typeof ClientRoute
+    }
+    '/client/profile/': {
+      id: '/client/profile/'
+      path: '/profile'
+      fullPath: '/client/profile/'
+      preLoaderRoute: typeof ClientProfileIndexRouteImport
+      parentRoute: typeof ClientRoute
+    }
+    '/client/projects/': {
+      id: '/client/projects/'
+      path: '/projects'
+      fullPath: '/client/projects/'
+      preLoaderRoute: typeof ClientProjectsIndexRouteImport
+      parentRoute: typeof ClientRoute
+    }
+    '/client/projects/$id': {
+      id: '/client/projects/$id'
+      path: '/projects/$id'
+      fullPath: '/client/projects/$id'
+      preLoaderRoute: typeof ClientProjectsIdRouteImport
+      parentRoute: typeof ClientRoute
+    }
+    '/client/saved-creators/': {
+      id: '/client/saved-creators/'
+      path: '/saved-creators'
+      fullPath: '/client/saved-creators/'
+      preLoaderRoute: typeof ClientSavedCreatorsIndexRouteImport
+      parentRoute: typeof ClientRoute
     }
     '/creator/earnings/': {
       id: '/creator/earnings/'
@@ -564,6 +736,33 @@ const AdminRouteChildren: AdminRouteChildren = {
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
+interface ClientRouteChildren {
+  ClientIndexRoute: typeof ClientIndexRoute
+  ClientMarketplaceCreatorIdRoute: typeof ClientMarketplaceCreatorIdRoute
+  ClientProjectsIdRoute: typeof ClientProjectsIdRoute
+  ClientMarketplaceIndexRoute: typeof ClientMarketplaceIndexRoute
+  ClientMembershipIndexRoute: typeof ClientMembershipIndexRoute
+  ClientNotificationsIndexRoute: typeof ClientNotificationsIndexRoute
+  ClientProfileIndexRoute: typeof ClientProfileIndexRoute
+  ClientProjectsIndexRoute: typeof ClientProjectsIndexRoute
+  ClientSavedCreatorsIndexRoute: typeof ClientSavedCreatorsIndexRoute
+}
+
+const ClientRouteChildren: ClientRouteChildren = {
+  ClientIndexRoute: ClientIndexRoute,
+  ClientMarketplaceCreatorIdRoute: ClientMarketplaceCreatorIdRoute,
+  ClientProjectsIdRoute: ClientProjectsIdRoute,
+  ClientMarketplaceIndexRoute: ClientMarketplaceIndexRoute,
+  ClientMembershipIndexRoute: ClientMembershipIndexRoute,
+  ClientNotificationsIndexRoute: ClientNotificationsIndexRoute,
+  ClientProfileIndexRoute: ClientProfileIndexRoute,
+  ClientProjectsIndexRoute: ClientProjectsIndexRoute,
+  ClientSavedCreatorsIndexRoute: ClientSavedCreatorsIndexRoute,
+}
+
+const ClientRouteWithChildren =
+  ClientRoute._addFileChildren(ClientRouteChildren)
+
 interface CreatorRouteChildren {
   CreatorIndexRoute: typeof CreatorIndexRoute
   CreatorEarningsIndexRoute: typeof CreatorEarningsIndexRoute
@@ -590,7 +789,7 @@ const CreatorRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRouteWithChildren,
-  ClientRoute: ClientRoute,
+  ClientRoute: ClientRouteWithChildren,
   ContactRoute: ContactRoute,
   CreatorRoute: CreatorRouteWithChildren,
   CreatorApplyRoute: CreatorApplyRoute,

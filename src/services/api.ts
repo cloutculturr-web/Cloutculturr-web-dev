@@ -608,6 +608,71 @@ export const creatorAPI = {
 };
 
 /**
+ * Client API Service — the authenticated client's own workspace.
+ * Every endpoint under /client/... is scoped server-side to the
+ * authenticated client; no client-supplied id ever selects whose data is
+ * read/mutated (creator ids are inherently cross-entity — read-only lookups
+ * of a creator's own public profile — and are never used to select the
+ * caller's own records).
+ */
+export const clientAPI = {
+  getDashboard: async () => apiRequest<any>('/client/dashboard'),
+
+  getProfile: async () => apiRequest<any>('/client/profile'),
+
+  updateProfile: async (data: {
+    companyName?: string;
+    industry?: string;
+    location?: string;
+    websiteUrl?: string;
+    description?: string;
+  }) => apiRequest<any>('/client/profile', { method: 'PUT', body: JSON.stringify(data) }),
+
+  getMarketplace: async (page = 1, limit = 10) =>
+    apiRequest<any>(`/client/marketplace?page=${page}&limit=${limit}`),
+
+  getCreatorDetails: async (creatorId: string) => apiRequest<any>(`/client/marketplace/${creatorId}`),
+
+  saveCreator: async (creatorId: string) =>
+    apiRequest<any>(`/client/save-creator/${creatorId}`, { method: 'POST' }),
+
+  unsaveCreator: async (creatorId: string) =>
+    apiRequest<any>(`/client/save-creator/${creatorId}`, { method: 'DELETE' }),
+
+  getSavedCreators: async () => apiRequest<any>('/client/saved-creators'),
+
+  getRecentlyViewed: async () => apiRequest<any>('/client/recently-viewed'),
+
+  getMembership: async () => apiRequest<any>('/client/membership'),
+
+  createMembershipOrder: async () => apiRequest<any>('/client/membership/order', { method: 'POST' }),
+
+  verifyMembershipPayment: async (data: { orderId: string; paymentId: string; signature: string }) =>
+    apiRequest<any>('/client/membership/verify', { method: 'POST', body: JSON.stringify(data) }),
+
+  cancelMembership: async () => apiRequest<any>('/client/membership/cancel', { method: 'POST' }),
+
+  createProject: async (data: {
+    title: string;
+    description: string;
+    budget: number;
+    requirements: string;
+    timeline: string;
+    creatorId?: string;
+  }) => apiRequest<any>('/client/projects', { method: 'POST', body: JSON.stringify(data) }),
+
+  getProjects: async (status?: string) => apiRequest<any>(`/client/projects${status ? `?status=${status}` : ''}`),
+
+  getProject: async (id: string) => apiRequest<any>(`/client/projects/${id}`),
+
+  updateProject: async (id: string, data: { action?: 'approve_quotation' | 'reject_quotation'; description?: string }) =>
+    apiRequest<any>(`/client/projects/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+
+  submitProjectReview: async (id: string, data: { rating: number; feedback?: string }) =>
+    apiRequest<any>(`/client/projects/${id}/review`, { method: 'POST', body: JSON.stringify(data) }),
+};
+
+/**
  * Notifications API — shared across roles, always scoped server-side to
  * the authenticated user.
  */

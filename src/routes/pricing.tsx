@@ -11,9 +11,9 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-const title = "Pricing & Membership — CloutCulturee";
+const title = "Pricing & Membership — Cloutculturr";
 const description =
-  "CloutCulturee agency retainers, marketplace commission structure and the ₹100/month Premium membership for unlimited creator access.";
+  "Cloutculturr agency retainers, marketplace commission structure and the ₹100/month Premium membership for unlimited creator access.";
 
 export const Route = createFileRoute("/pricing")({
   head: () => ({
@@ -117,7 +117,7 @@ function PricingPage() {
                 <div className="rounded-2xl bg-secondary/50 p-6">
                   <div className="text-4xl font-bold text-gradient">100%</div>
                   <p className="mt-3 text-sm text-muted-foreground">
-                    Projects delivered by the CloutCulturee team — full revenue stays with CC.
+                    Projects delivered by the Cloutculturr team — full revenue stays with CC.
                   </p>
                 </div>
                 <div className="rounded-2xl bg-secondary/50 p-6">

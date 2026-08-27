@@ -7,9 +7,9 @@ import { Footer } from "@/components/site/Footer";
 import { Reveal } from "@/components/site/Reveal";
 import { creators } from "@/data/site";
 
-const title = "Book a Strategy Call — CloutCulturee";
+const title = "Book a Strategy Call — Cloutculturr";
 const description =
-  "Tell us about your brand and book a free strategy call with the CloutCulturee team, or get routed to a vetted marketplace creator.";
+  "Tell us about your brand and book a free strategy call with the Cloutculturr team, or get routed to a vetted marketplace creator.";
 
 type Search = { intent?: "cc" | "creator" | undefined };
 
@@ -67,8 +67,8 @@ function ContactPage() {
               <div className="grid gap-8 sm:grid-cols-3">
                 <div>
                   <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Email</p>
-                  <a href="mailto:cloutculturee@gmail.com" className="mt-2 text-sm font-semibold text-accent hover:underline">
-                    cloutculturee@gmail.com
+                  <a href="mailto:cloutculturr@gmail.com" className="mt-2 text-sm font-semibold text-accent hover:underline">
+                    cloutculturr@gmail.com
                   </a>
                 </div>
                 <div>
@@ -91,7 +91,7 @@ function ContactPage() {
               Let's map your <span className="text-gradient">growth</span>.
             </h1>
             <p className="mt-5 text-sm text-muted-foreground sm:text-base">
-              Every enquiry reaches the CloutCulturee team first. If we're not the right fit, we route
+              Every enquiry reaches the Cloutculturr team first. If we're not the right fit, we route
               you into the vetted creator marketplace.
             </p>
           </Reveal>
@@ -109,7 +109,7 @@ function ContactPage() {
 
               {step === 0 ? (
                 <div>
-                  <h2 className="text-2xl font-semibold">Do you want to work with CloutCulturee?</h2>
+                  <h2 className="text-2xl font-semibold">Do you want to work with Cloutculturr?</h2>
                   <p className="mt-3 text-sm text-muted-foreground">
                     CC handles your project end-to-end as the flagship agency. Prefer someone else?
                     We'll open the marketplace instead.
@@ -206,7 +206,7 @@ function ContactPage() {
                   <h2 className="mt-6 text-3xl font-semibold">You're booked.</h2>
                   <p className="mx-auto mt-4 max-w-md text-sm text-muted-foreground">
                     {withCC
-                      ? "The CloutCulturee team will send a confirmation and calendar invite shortly."
+                      ? "The Cloutculturr team will send a confirmation and calendar invite shortly."
                       : "We'll introduce you to your selected creator and share the meeting invite."}
                   </p>
                   <p className="mt-6 text-sm">
