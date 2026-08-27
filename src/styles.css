@@ -1,0 +1,263 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-display: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --color-indigo-deep: var(--indigo-deep);
+  --color-lavender-creative: var(--lavender-creative);
+  --color-mint-soft: var(--mint-soft);
+  --color-ivory-warm: var(--ivory-warm);
+  --animate-float-slow: float-slow 18s ease-in-out infinite;
+  --animate-float-mid: float-mid 13s ease-in-out infinite;
+  --animate-spin-slow: spin 40s linear infinite;
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-pulse-glow: pulse-glow 6s ease-in-out infinite;
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translate3d(0,0,0) rotate(0deg); }
+  50% { transform: translate3d(0,-38px,0) rotate(4deg); }
+}
+@keyframes float-mid {
+  0%, 100% { transform: translate3d(0,0,0) rotate(-3deg); }
+  50% { transform: translate3d(22px,26px,0) rotate(3deg); }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes pulse-glow {
+  0%, 100% { opacity: .45; transform: scale(1); }
+  50% { opacity: .85; transform: scale(1.12); }
+}
+
+/*
+ * Design system definition with new CloutCulturee brand colors.
+ *
+ * The @theme inline block maps CSS custom properties to Tailwind utility
+ * classes (e.g. --color-primary -> bg-primary, text-primary).
+ *
+ * The :root and .dark blocks define the actual color values using oklch.
+ * All colors MUST use oklch format.
+ *
+ * Brand Palette:
+ * - Deep Royal Indigo: #4536AA
+ * - Creative Lavender: #A468D5
+ * - Soft Mint Green: #AEE691
+ * - Warm Ivory: #FFF8C7
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 1rem;
+  
+  /* Brand Colors in OKLCH */
+  --indigo-deep: oklch(0.371 0.186 268);      /* #4536AA - Deep Royal Indigo */
+  --lavender-creative: oklch(0.585 0.167 290); /* #A468D5 - Creative Lavender */
+  --mint-soft: oklch(0.758 0.158 142);         /* #AEE691 - Soft Mint Green */
+  --ivory-warm: oklch(0.975 0.019 97);         /* #FFF8C7 - Warm Ivory */
+  
+  /* Dark theme backgrounds - very dark indigo gradients */
+  --background: oklch(0.12 0.04 268);          /* Very dark indigo */
+  --foreground: oklch(0.98 0.004 285);         /* White */
+  --card: oklch(0.18 0.05 268);                /* Dark indigo with more saturation */
+  --card-foreground: oklch(0.98 0.004 285);    /* White */
+  --popover: oklch(0.16 0.044 268);            /* Dark indigo */
+  --popover-foreground: oklch(0.98 0.004 285); /* White */
+  
+  /* Primary: Deep Royal Indigo */
+  --primary: oklch(0.371 0.186 268);           /* #4536AA */
+  --primary-foreground: oklch(0.99 0 0);       /* White */
+  
+  /* Secondary: Creative Lavender */
+  --secondary: oklch(0.585 0.167 290);         /* #A468D5 */
+  --secondary-foreground: oklch(0.99 0 0);     /* White */
+  
+  /* Muted: Dark indigo tones */
+  --muted: oklch(0.22 0.04 268);               /* Muted indigo */
+  --muted-foreground: oklch(0.72 0.02 268);    /* Light gray */
+  
+  /* Accent: Soft Mint Green */
+  --accent: oklch(0.758 0.158 142);            /* #AEE691 */
+  --accent-foreground: oklch(0.12 0.04 268);   /* Dark indigo */
+  
+  /* Destructive: Soft red */
+  --destructive: oklch(0.62 0.24 20);
+  --destructive-foreground: oklch(0.99 0 0);   /* White */
+  
+  /* Borders and inputs */
+  --border: color-mix(in oklab, var(--lavender-creative) 15%, transparent);
+  --input: color-mix(in oklab, var(--indigo-deep) 20%, transparent);
+  --ring: var(--lavender-creative);
+  
+  /* Named colors for custom use */
+  --violet-neon: var(--lavender-creative);
+  --royal: var(--indigo-deep);
+  --blush: var(--lavender-creative);
+  
+  /* Chart colors */
+  --chart-1: var(--indigo-deep);               /* Deep Indigo */
+  --chart-2: var(--lavender-creative);         /* Lavender */
+  --chart-3: var(--mint-soft);                 /* Mint */
+  --chart-4: var(--ivory-warm);                /* Ivory */
+  --chart-5: oklch(0.65 0.2 350);              /* Soft Red */
+  
+  /* Gradients */
+  --gradient-brand: linear-gradient(115deg, var(--indigo-deep), var(--lavender-creative) 45%, var(--mint-soft));
+  --gradient-veil: radial-gradient(60% 60% at 50% 0%, color-mix(in oklab, var(--lavender-creative) 25%, transparent), transparent 70%);
+  --gradient-hero: linear-gradient(135deg, var(--indigo-deep) 0%, color-mix(in oklab, var(--indigo-deep) var(--lavender-creative) 50%) 50%, color-mix(in oklab, var(--lavender-creative) 80%, transparent) 100%);
+  
+  /* Shadows */
+  --shadow-neon: 0 0 0 1px color-mix(in oklab, var(--lavender-creative) 30%, transparent), 0 24px 80px -20px color-mix(in oklab, var(--indigo-deep) 55%, transparent);
+  --shadow-glass: 0 30px 90px -40px color-mix(in oklab, var(--indigo-deep) 70%, transparent);
+  --shadow-glow: 0 0 30px -10px color-mix(in oklab, var(--lavender-creative) 50%, transparent);
+  
+  /* Sidebar */
+  --sidebar: oklch(0.15 0.04 268);             /* Dark indigo */
+  --sidebar-foreground: oklch(0.98 0.004 285); /* White */
+  --sidebar-primary: var(--indigo-deep);       /* Deep Indigo */
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: var(--mint-soft);          /* Mint Green */
+  --sidebar-accent-foreground: oklch(0.12 0.04 268);
+  --sidebar-border: color-mix(in oklab, var(--lavender-creative) 15%, transparent);
+  --sidebar-ring: var(--lavender-creative);
+}
+
+.dark {
+  /* Dark mode uses the same palette */
+  --background: oklch(0.12 0.04 268);
+  --foreground: oklch(0.98 0.004 285);
+  --card: oklch(0.18 0.05 268);
+  --card-foreground: oklch(0.98 0.004 285);
+  --popover: oklch(0.16 0.044 268);
+  --popover-foreground: oklch(0.98 0.004 285);
+  --primary: oklch(0.371 0.186 268);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.585 0.167 290);
+  --secondary-foreground: oklch(0.99 0 0);
+  --muted: oklch(0.22 0.04 268);
+  --muted-foreground: oklch(0.72 0.02 268);
+  --accent: oklch(0.758 0.158 142);
+  --accent-foreground: oklch(0.12 0.04 268);
+  --destructive: oklch(0.62 0.24 20);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: color-mix(in oklab, var(--lavender-creative) 15%, transparent);
+  --input: color-mix(in oklab, var(--indigo-deep) 20%, transparent);
+  --ring: var(--lavender-creative);
+  --chart-1: var(--indigo-deep);
+  --chart-2: var(--lavender-creative);
+  --chart-3: var(--mint-soft);
+  --chart-4: var(--ivory-warm);
+  --chart-5: oklch(0.65 0.2 350);
+  --sidebar: oklch(0.15 0.04 268);
+  --sidebar-foreground: oklch(0.98 0.004 285);
+  --sidebar-primary: var(--indigo-deep);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: var(--mint-soft);
+  --sidebar-accent-foreground: oklch(0.12 0.04 268);
+  --sidebar-border: color-mix(in oklab, var(--lavender-creative) 15%, transparent);
+  --sidebar-ring: var(--lavender-creative);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.03em;
+  }
+}
+
+@utility glass {
+  background: color-mix(in oklab, var(--card) 55%, transparent);
+  backdrop-filter: blur(28px) saturate(150%);
+  border: 1px solid color-mix(in oklab, var(--lavender-creative) 20%, transparent);
+  box-shadow: var(--shadow-glass);
+}
+
+@utility text-gradient {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility bg-brand-gradient {
+  background: var(--gradient-brand);
+}
+
+@utility neon-ring {
+  box-shadow: var(--shadow-neon);
+}
+
+@utility grain {
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.35;
+    background-image: radial-gradient(color-mix(in oklab, var(--lavender-creative) 8%, transparent) 1px, transparent 1px);
+    background-size: 3px 3px;
+  }
+}
+

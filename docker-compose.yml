@@ -1,0 +1,82 @@
+# Docker Compose for Local Development
+# 
+# Usage:
+# docker-compose up -d          # Start services
+# docker-compose down           # Stop services
+# docker-compose logs -f        # View logs
+
+version: '3.8'
+
+services:
+  # MongoDB Database
+  mongodb:
+    image: mongo:7.0
+    container_name: cloutculturee-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      # TODO: Add MongoDB credentials if needed
+      MONGO_INITDB_DATABASE: cloutculturee
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - cloutculturee-network
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend Application
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cloutculturee-backend
+    ports:
+      - "5000:5000"
+    environment:
+      # TODO: Add environment variables
+      NODE_ENV: development
+      MONGODB_URI: mongodb://mongodb:27017/cloutculturee
+      # PLACEHOLDER - Add other env vars
+      JWT_SECRET: your_jwt_secret
+      RAZORPAY_KEY_ID: your_razorpay_key
+      RAZORPAY_KEY_SECRET: your_razorpay_secret
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    volumes:
+      - ./backend/src:/app/src
+    networks:
+      - cloutculturee-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis Cache (optional, for future use)
+  redis:
+    image: redis:7-alpine
+    container_name: cloutculturee-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - cloutculturee-network
+    # TODO: Uncomment when using Redis
+    # healthcheck:
+    #   test: ["CMD", "redis-cli", "ping"]
+    #   interval: 10s
+    #   timeout: 5s
+    #   retries: 5
+
+volumes:
+  mongodb_data:
+  redis_data:
+
+networks:
+  cloutculturee-network:
+    driver: bridge

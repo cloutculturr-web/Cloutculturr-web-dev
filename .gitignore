@@ -1,0 +1,66 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+backend/uploads
+.output
+.vinxi
+.tanstack/**
+.nitro
+*.local
+
+# Wrangler / Cloudflare
+.wrangler/
+.dev.vars
+
+# Environment files (never commit real secrets)
+.env
+.env.*
+!.env.example
+!backend/.env.example
+backend/.env
+backend/.env.*
+!backend/.env.example
+
+# Coverage / build output
+coverage
+backend/dist
+
+# Legacy AI-session scaffolding docs — contain a real plaintext admin
+# credential repeated across dozens of throwaway status/summary files from
+# earlier dev sessions. Excluded wholesale rather than hand-scrubbed; kept
+# locally, not in version control.
+/docs/
+/APPLICATION_STATUS.txt
+/MONGODB_SETUP_SUMMARY.txt
+/QUICK_REFERENCE_CARD.txt
+/QUICK_START.txt
+/STATUS_DASHBOARD.txt
+/SYSTEM_STATUS_REPORT.txt
+/ADMIN_DASHBOARD_COMPLETE_DOCUMENTATION.md
+/ADMIN_DASHBOARD_TEST_GUIDE.md
+/⚡_QUICK_REFERENCE.txt
+/✨_FINAL_SUMMARY.txt
+/🎉_APPLICATION_TESTED_AND_READY.txt
+/🎊_SESSION_COMPLETION_SUMMARY.txt
+/🚀_APPLICATION_RUNNING.txt
+/test-api-connection.html
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
