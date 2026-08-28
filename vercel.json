@@ -1,6 +1,8 @@
 {
+  "buildCommand": "npm run build && npm install --prefix backend && npm run build --prefix backend",
   "outputDirectory": "dist/client",
   "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/backend" },
     { "source": "/(.*)", "destination": "/api/ssr" }
   ]
 }

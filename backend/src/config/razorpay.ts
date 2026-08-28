@@ -10,9 +10,13 @@ if (!RAZORPAY_KEY_ID || !RAZORPAY_KEY_SECRET) {
   logger.warn('⚠️ Razorpay credentials not configured. Payment functionality will be disabled.');
 }
 
+// See paymentService.ts for why these fall back to a non-empty placeholder
+// rather than '' — the SDK throws at construction time on an empty key_id,
+// which would otherwise crash this whole module (and everything that
+// imports it) whenever Razorpay isn't configured yet.
 export const razorpayInstance = new Razorpay({
-  key_id: RAZORPAY_KEY_ID || '',
-  key_secret: RAZORPAY_KEY_SECRET || '',
+  key_id: RAZORPAY_KEY_ID || 'unconfigured_razorpay_key_id',
+  key_secret: RAZORPAY_KEY_SECRET || 'unconfigured_razorpay_key_secret',
 });
 
 export interface CreateOrderOptions {

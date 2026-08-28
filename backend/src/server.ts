@@ -153,10 +153,17 @@ app.use(errorHandler);
 // Database Connection & Server Start
 // ================================
 
+// Resolves once the database connection has been attempted (connectDatabase
+// itself never rejects — it logs and continues in a degraded state on
+// failure). Exported so a serverless wrapper (api/backend.js on Vercel) can
+// await it before handling the first request on a cold start, instead of
+// racing ahead of an in-flight connection the way a fire-and-forget
+// startServer() call would.
+export const dbReady: Promise<void> = connectDatabase();
+
 const startServer = async () => {
   try {
-    // Connect to database (non-fatal — server runs in mock mode if DB is unavailable)
-    await connectDatabase();
+    await dbReady;
 
     // Start server
     app.listen(PORT, () => {
@@ -164,7 +171,7 @@ const startServer = async () => {
 ╔════════════════════════════════════════╗
 ║  Cloutculturr Backend Server Running  ║
 ╠════════════════════════════════════════╣
-║  Port: ${PORT}                          
+║  Port: ${PORT}
 ║  Environment: ${NODE_ENV}
 ║  Time: ${new Date().toLocaleString()}
 ╚════════════════════════════════════════╝
@@ -192,7 +199,13 @@ process.on('uncaughtException', (error) => {
   process.exit(1);
 });
 
-// Start the server
-startServer();
+// Only auto-start a listening server for local/traditional hosting. On
+// Vercel (process.env.VERCEL is set by the platform itself), the serverless
+// wrapper at api/backend.js imports `app` and `dbReady` directly and invokes
+// the app per-request — an actual bound port would never receive traffic
+// there, and would just be dead weight in the function's cold start.
+if (!process.env.VERCEL) {
+  startServer();
+}
 
 export default app;

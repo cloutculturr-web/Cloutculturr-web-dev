@@ -3,7 +3,11 @@
  * Handles all API calls to the admin backend
  */
 
-const API_URL = (import.meta.env['VITE_API_URL'] as string | undefined) || 'http://localhost:5000/api';
+// Defaults to a relative path so the same build works unmodified wherever
+// the backend is same-origin (e.g. deployed together on Vercel under
+// /api/*) — set VITE_API_URL explicitly only when the backend lives on a
+// different origin than the frontend.
+const API_URL = (import.meta.env['VITE_API_URL'] as string | undefined) || '/api';
 
 interface ApiResponse<T> {
   success: boolean;

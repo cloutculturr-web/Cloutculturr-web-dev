@@ -5,9 +5,16 @@ import Project from '@/models/Project.js';
 import { NotFoundError, ValidationError, AppError } from '@/utils/errors.js';
 import { logger } from '@/utils/logger.js';
 
+// The Razorpay SDK throws at construction time if key_id is an empty
+// string — which would crash this whole module (and therefore every route
+// that imports it, not just payment ones) whenever RAZORPAY_KEY_ID isn't
+// configured in the environment. Fall back to an obviously-invalid
+// placeholder instead of '' so the module always loads; any real attempt
+// to call the Razorpay API still fails honestly with a real 401 from
+// Razorpay itself — never a fake success.
 const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID || '',
-  key_secret: process.env.RAZORPAY_KEY_SECRET || '',
+  key_id: process.env.RAZORPAY_KEY_ID || 'unconfigured_razorpay_key_id',
+  key_secret: process.env.RAZORPAY_KEY_SECRET || 'unconfigured_razorpay_key_secret',
 });
 
 const COMMISSION_RATE = parseFloat(process.env.COMMISSION_RATE || '0.25'); // 25%
