@@ -5,9 +5,19 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const logsDir = path.join(__dirname, '../../logs');
 
-// Create logs directory if it doesn't exist
-if (!fs.existsSync(logsDir)) {
-  fs.mkdirSync(logsDir, { recursive: true });
+// Serverless platforms (Vercel, and likely others) mount everything except
+// /tmp read-only — mkdirSync here would throw at module load time and crash
+// every single route that (transitively) imports this file. Try it, but
+// degrade to console-only logging instead of taking the whole app down if
+// the filesystem isn't writable.
+let fileLoggingEnabled = true;
+try {
+  if (!fs.existsSync(logsDir)) {
+    fs.mkdirSync(logsDir, { recursive: true });
+  }
+} catch (error) {
+  fileLoggingEnabled = false;
+  console.warn('⚠️ Log directory is not writable (read-only filesystem?) — logging to console only:', error);
 }
 
 const LOG_LEVEL = process.env.LOG_LEVEL || 'info';
@@ -57,17 +67,22 @@ const formatMessage = (level: LogLevel, message: string, data?: any): string => 
 const writeLog = (level: LogLevel, message: string, data?: any): void => {
   const formattedMessage = formatMessage(level, message, data);
   
-  // Console output with colors
-  if (process.env.NODE_ENV !== 'production') {
+  // Console output with colors. Always log to console when file logging
+  // isn't available (e.g. Vercel's read-only filesystem) — console output
+  // is the only thing a serverless platform's runtime logs actually
+  // capture, regardless of NODE_ENV.
+  if (process.env.NODE_ENV !== 'production' || !fileLoggingEnabled) {
     const color = colors[level];
     console.log(`${color}${formattedMessage}${colors.reset}`);
   }
-  
+
   // File output
-  try {
-    fs.appendFileSync(LOG_FILE, `${formattedMessage}\n`);
-  } catch (error) {
-    console.error('Failed to write to log file:', error);
+  if (fileLoggingEnabled) {
+    try {
+      fs.appendFileSync(LOG_FILE, `${formattedMessage}\n`);
+    } catch (error) {
+      console.error('Failed to write to log file:', error);
+    }
   }
 };
 
